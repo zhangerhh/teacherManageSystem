@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="f1()">点击</button>
+  </body>
+  <script type="text/javascript">
+    function f1() {
+      var xml = new XMLHttpRequest();
+      xml.onreadystatechange = function () {
+        if (xml.status == 200 && xml.readyState == 4) {
+          console.log("sucess");
+          console.log(xml.responseText)
+        }
+      };
+      xml.open("post", "http://127.0.0.1:8080/", true);
+      xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xml.send("username="+123+"&password="+18);
+    }
+  </script>
+</html>

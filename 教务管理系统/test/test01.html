@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>教务管理系统</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        background-color: #ebf0dc;
+      }
+      #Containers {
+        width: 300px;
+        height: 247px;
+        background-color: white;
+        position: relative;
+        top: 200px;
+        left: 700px;
+      }
+      input {
+        font-size: 1em;
+        margin-top: 15px;
+        margin-left: 25px;
+      }
+      #b {
+        margin-left: 70px;
+      }
+      p {
+        background-color: yellowgreen;
+      }
+      .Hint {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="Containers">
+      <p>用户登录</p>
+      <input
+        type="text"
+        name="username"
+        placeholder="用户名"
+        id="username"
+        onblur="f1()"
+      /><span class="Hint" id="usernamespan"></span><br />
+      <input
+        type="password"
+        name="password"
+        placeholder="密码"
+        id="password"
+        onblur="f2()"
+      /><span id="passwordspan" class="Hint"></span><br />
+
+      <input type="button" value="登录" onclick="login()" id="a" />
+      <input type="button" value="忘记密码" onclick="forgetPass()" id="b" />
+    </div>
+
+    <script type="text/javascript">
+      function login() {
+        if (f1() && f2()) {
+          var username = document.getElementById("username").value;
+          var password = document.getElementById("password").value;
+          var passwordspan = document.getElementById("passwordspan");
+          var xml = new XMLHttpRequest();
+          
+          xml.open("post","http://127.0.0.1:8080/",true)
+          xml.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+          xml.send("username="+username+"password="+password)
+          xml.onreadystatechange = function () {
+            if (xml.readyState == 4 && xml.status == 200) {
+              if (xml.responseText == "success") {
+                console.log("success");
+                window.location.href = "./student/firstpage.html";
+              } else {
+                passwordspan.innerHTML = "密码错误";
+              }
+            }
+          };
+        }
+      }
+
+      function forgetPass() {
+        window.location.href = "./forgetpass.html";
+      }
+
+      function f1() {
+        var username = document.getElementById("username").value;
+        //var usernamespan=document.getElementById("usernamespan")
+        if (username.length == 0) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+
+      function f2() {
+        var password = document.getElementById("password").value;
+        if (password.length == 0) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    </script>
+  </body>
+</html>

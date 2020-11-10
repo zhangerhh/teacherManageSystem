@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      body {
+        background-color: #ebf0dc;
+      }
+      #Containers {
+        background-color: white;
+        width: 600px;
+        height: 300px;
+        margin: 50px auto;
+      }
+      table,
+      th,
+      td {
+        border: solid 1px #e5e5e5;
+        border-collapse: collapse;
+      }
+      table {
+        width: 600px;
+        height: 300px;
+      }
+      .key {
+        text-align: center;
+      }
+      span {
+        font-size: 0.6em;
+      }
+      .Hint {
+        color: red;
+      }
+      input {
+        width: 78%;
+        height: 100%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        border: solid 1px #e5e5e5;
+        font-size: 1.5em;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <div id="Containers">
+      <table>
+        <tr>
+          <td colspan="2" class="key">初始化密码</td>
+        </tr>
+        <tr>
+          <td class="key"><span>学号</span></td>
+          <td>
+            <input type="text" name="user" id="user" onblur="f1()" /><span
+              class="Hint"
+              id="userspan"
+            ></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="key"><span>身份证号</span></td>
+          <td>
+            <input
+              type="text"
+              name="personId"
+              id="personId"
+              onblur="f2()"
+            /><span class="Hint" id="personIdspan"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="key"><span>新密码</span></td>
+          <td>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              onblur="f3()"
+            />
+            <span class="Hint" id="passwordspan1"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="key"><span>确认密码</span></td>
+          <td>
+            <input type="password" onblur="f4()" id="password2" /><span
+              class="Hint"
+              id="passwordspan2"
+            ></span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="key">
+            <button onclick="save()">保存</button>
+            <button onclick="goback()">返回首页</button>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <span id="a" class="Hint">
+              注：密码策略为8位（包括）以上字符，不超过16位
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <script type="text/javascript">
+      function save() {
+        if (f1() && f2() && f3() && f4()) {
+          var xml = new XMLHttpRequest();
+          var user = document.getElementById("user").value;
+          var personId = document.getElementById("personId").value;
+          var password = document.getElementById("password").value;
+          xml.open(
+            "get",
+            "http://127.0.0.1:8080/forgetPass?user=" +
+              user +
+              "&password=" +
+              password +
+              "&personId=" +
+              personId,
+            true
+          );
+          xml.send();
+          xml.onreadystatechange = function () {
+            if (xml.readyState == 4 && xml.status == 200) {
+              if (xml.responseText == "success") {
+                alert("修改成功");
+              } else {
+                alert("网络问题,稍后重试");
+              }
+            }
+          };
+        }
+      }
+
+      function goback() {
+        window.location.href = "../index.html";
+      }
+
+      function f1() {
+        var user = document.getElementById("user").value;
+        var userspan = document.getElementById("userspan");
+        if (user.length == 0) {
+          userspan.innerHTML = "不能为空";
+          return false;
+        } else {
+          userspan.innerHTML = "";
+          return true;
+        }
+      }
+
+      function f2() {
+        var personId = document.getElementById("personId").value;
+        var personIdspan = document.getElementById("personIdspan");
+        if (personId.length == 0) {
+          personIdspan.innerHTML = "不能为空";
+          return falae;
+        } else if (personId.length != 18) {
+          personIdspan.innerHTML = "请正确输入身份证号";
+          return falae;
+        } else {
+          personIdspan.innerHTML = "";
+          return true;
+        }
+      }
+
+      function f3() {
+        var password = document.getElementById("password").value;
+        var passwordspan1 = document.getElementById("passwordspan1");
+        if (password.length == 0) {
+          passwordspan1.innerHTML = "密码不能为空";
+          return false;
+        } else if (password.length < 8 || password.length > 16) {
+          passwordspan1.innerHTML = "密码应大于8位不超过16位";
+          return false;
+        } else {
+          passwordspan1.innerHTML = "";
+          return true;
+        }
+      }
+
+      function f4() {
+        var password = document.getElementById("password").value;
+        var password2 = document.getElementById("password2").value;
+        var passwordspan2 = document.getElementById("passwordspan2");
+        if (password != password2) {
+          passwordspan2.innerHTML = "两次输入密码不一致";
+          return false;
+        } else {
+          passwordspan2.innerHTML = "";
+          return true;
+        }
+      }
+    </script>
+  </body>
+</html>

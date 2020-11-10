@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="a" />
+    <input type="button" onclick="f1()" id="b"value="测试" />
+    <script type="text/javascript">
+      function f1() {
+        var str = document.getElementById("a");
+        reg1=/^(?=.*[a-zA-Z])(?=.*[1-9])(?=.*[\W])$/;
+        reg2=/^(?=.*[a-zA-Z])(?=.*[1-9])$/;
+        reg3=/^(?=.*[a-zA-Z])(?=.*[\W])$/;
+        reg4=/^(?=.*[a-z])(?=.*[1-9])(?=.*[\W])$/;
+        reg5=/^(?=.*[A-Z])(?=.*[1-9])(?=.*[\W])$/;
+
+
+        console.log(reg1.test(str))
+        //alert(reg2.test(str)||reg3.test(str)||reg4.test(str)||reg5.test(str));
+      }
+    </script>
+  </body>
+</html>
