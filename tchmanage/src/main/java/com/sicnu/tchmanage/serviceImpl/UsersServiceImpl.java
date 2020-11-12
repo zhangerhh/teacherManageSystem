@@ -6,6 +6,8 @@ import com.sicnu.tchmanage.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -20,6 +22,11 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public  int change(String account,String uid,String pswd){
         return usersDao.postInfo(account,uid,pswd);
+    }
+
+    @Override
+    public ArrayList<UsersBean> getUsers(String status) {
+        return usersDao.getall(status);
     }
 }
 

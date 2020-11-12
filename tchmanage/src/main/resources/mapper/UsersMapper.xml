@@ -12,4 +12,8 @@
         update users set pswd = #{pswd} where account = #{account} and uid = #{uid}
     </update>
 
+    <select id="getall" resultType="com.example.tchmanage.bean.UsersBean" parameterType="String">
+        select * from users;
+    </select>
+
 </mapper>
