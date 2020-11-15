@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+`<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,7 +12,7 @@
             font-family: "微软雅黑";
             background: url(./img/timg.jpg) no-repeat top center;
             color: #fff;
-        }
+        }·
 
         div,
         p {
@@ -131,7 +131,8 @@
                 var password = document.getElementsByClassName("pass")[0].value;
                 var hint = document.getElementsByClassName("hint")[0]
                 var xml = new XMLHttpRequest();
-                var url = "http://127.0.0.1:8080/loginIn";
+                //var url = "http://127.0.0.1:8080/loginIn";
+                var url = "http://192.168.43.194:8080/loginIn";
                 xml.open("post", url, true);
                 xml.setRequestHeader(
                     "Content-type",
